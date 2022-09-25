@@ -16,6 +16,7 @@ use App\Middlewares\AuthenticationMiddleware;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Aura\Router\RouterContainer;
 use Laminas\Diactoros\Response;
+use Laminas\Diactoros\Response\EmptyResponse;
 use Laminas\Diactoros\ServerRequestFactory;
 use WoohooLabs\Harmony\Harmony;
 use WoohooLabs\Harmony\Middleware\DispatcherMiddleware;
@@ -26,15 +27,15 @@ $container = new DI\Container();
 $capsule = new Capsule;
 
 $capsule->addConnection([
-    'driver'    => getenv('DB_DRIVER'),
-    'host'      => getenv('DB_HOST'),
-    'database'  => getenv('DB_NAME'),
-    'username'  => getenv('DB_USER'),
-    'password'  => getenv('DB_PASS'),
-    'charset'   => 'utf8',
+    'driver' => getenv('DB_DRIVER'),
+    'host' => getenv('DB_HOST'),
+    'database' => getenv('DB_NAME'),
+    'username' => getenv('DB_USER'),
+    'password' => getenv('DB_PASS'),
+    'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
-    'prefix'    => '',
-    'port'      => getenv('DB_PORT')
+    'prefix' => '',
+    'port' => getenv('DB_PORT')
 ]);
 
 // Make this Capsule instance available globally via static methods... (optional)
@@ -104,12 +105,19 @@ $route = $matcher->match($request);
 if (!$route) {
     echo 'No route';
 } else {
-
-    $harmony = new Harmony($request, new Response());
-    $harmony
-        ->addMiddleware(new LaminasEmitterMiddleware(new SapiEmitter()))
-        ->addMiddleware(new AuthenticationMiddleware())
-        ->addMiddleware(new Middlewares\AuraRouter($routerContainer))
-        ->addMiddleware(new DispatcherMiddleware($container, 'request-handler'))
-        ->run();
+    try {
+        $harmony = new Harmony($request, new Response());
+        $harmony
+            ->addMiddleware(new LaminasEmitterMiddleware(new SapiEmitter()))
+            ->addMiddleware(new AuthenticationMiddleware())
+            ->addMiddleware(new Middlewares\AuraRouter($routerContainer))
+            ->addMiddleware(new DispatcherMiddleware($container, 'request-handler'))
+            ->run();
+    } catch (Exception $e) {
+        $emitter = new SapiEmitter();
+        $emitter->emit(new EmptyResponse(404));
+    } catch (Error $e) {
+        $emitter = new SapiEmitter();
+        $emitter->emit(new EmptyResponse(500));
+    }
 }
