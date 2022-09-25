@@ -2,14 +2,16 @@
 
 namespace App\Controllers;
 
-use \Twig_Loader_Filesystem;
-use Zend\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\HtmlResponse;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
 class BaseController {
     protected $templateEngine;
 
     public function __construct() {
-        $loader = new Twig_Loader_Filesystem('../views');
-        $this->templateEngine = new \Twig_Environment($loader, array(
+        $loader = new FilesystemLoader('../views');
+        $this->templateEngine = new Environment($loader, array(
             'debug' => true,
             'cache' => false,
         ));

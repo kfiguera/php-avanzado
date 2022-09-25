@@ -52,48 +52,48 @@ $request = ServerRequestFactory::fromGlobals(
 $routerContainer = new RouterContainer();
 $map = $routerContainer->getMap();
 $map->get('index', '/', [
-    'controller' => 'App\Controllers\IndexController',
-    'action' => 'indexAction'
+    'App\Controllers\IndexController',
+    'indexAction'
 ]);
 $map->get('indexJobs', '/jobs', [
-    'controller' => 'App\Controllers\JobsController',
-    'action' => 'indexAction',
+    'App\Controllers\JobsController',
+    'indexAction',
 ]);
 $map->get('deleteJobs', '/jobs/delete', [
-    'controller' => 'App\Controllers\JobsController',
-    'action' => 'deleteAction'
+    'App\Controllers\JobsController',
+    'deleteAction'
 ]);
 $map->get('addJobs', '/jobs/add', [
-    'controller' => 'App\Controllers\JobsController',
-    'action' => 'getAddJobAction'
+    'App\Controllers\JobsController',
+    'getAddJobAction'
 ]);
 $map->post('saveJobs', '/jobs/add', [
-    'controller' => 'App\Controllers\JobsController',
-    'action' => 'getAddJobAction'
+    'App\Controllers\JobsController',
+    'getAddJobAction'
 ]);
 $map->get('addUser', '/users/add', [
-    'controller' => 'App\Controllers\UsersController',
-    'action' => 'getAddUser'
+    'App\Controllers\UsersController',
+    'getAddUser'
 ]);
 $map->post('saveUser', '/users/save', [
-    'controller' => 'App\Controllers\UsersController',
-    'action' => 'postSaveUser'
+    'App\Controllers\UsersController',
+    'postSaveUser'
 ]);
 $map->get('loginForm', '/login', [
-    'controller' => 'App\Controllers\AuthController',
-    'action' => 'getLogin'
+    'App\Controllers\AuthController',
+    'getLogin'
 ]);
 $map->get('logout', '/logout', [
-    'controller' => 'App\Controllers\AuthController',
-    'action' => 'getLogout'
+    'App\Controllers\AuthController',
+    'getLogout'
 ]);
 $map->post('auth', '/auth', [
-    'controller' => 'App\Controllers\AuthController',
-    'action' => 'postLogin'
+    'App\Controllers\AuthController',
+    'postLogin'
 ]);
 $map->get('admin', '/admin', [
-    'controller' => 'App\Controllers\AdminController',
-    'action' => 'getIndex',
+    'App\Controllers\AdminController',
+    'getIndex',
     'auth' => true
 ]);
 
@@ -103,32 +103,11 @@ $route = $matcher->match($request);
 if (!$route) {
     echo 'No route';
 } else {
-    $handlerData = $route->handler;
-    $controllerName = $handlerData['controller'];
-    $actionName = $handlerData['action'];
-    $needsAuth = $handlerData['auth'] ?? false;
 
-    $sessionUserId = $_SESSION['userId'] ?? null;
-    if ($needsAuth && !$sessionUserId) {
-        echo 'Protected route';
-        die;
-    }
     $harmony = new Harmony($request, new Response());
     $harmony
         ->addMiddleware(new LaminasEmitterMiddleware(new SapiEmitter()))
         ->addMiddleware(new Middlewares\AuraRouter($routerContainer))
-        ->addMiddleware(new DispatcherMiddleware())
+        ->addMiddleware(new DispatcherMiddleware($container, 'request-handler'))
         ->run();
-
-//    $controller = $container->get($controllerName);
-//    $response = $controller->$actionName($request);
-//
-//    foreach($response->getHeaders() as $name => $values)
-//    {
-//        foreach($values as $value) {
-//            header(sprintf('%s: %s', $name, $value), false);
-//        }
-//    }
-//    http_response_code($response->getStatusCode());
-//    echo $response->getBody();
 }
