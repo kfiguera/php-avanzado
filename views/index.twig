@@ -40,7 +40,7 @@
                 {% for job in jobs %}
                     <div class="row work-position">
                         <div class="col-3">
-                            <img class="img-reponsive" src="{{ job.image }}" alt="{{ job.title }}">
+                            <img src="{{ job.getImage(job.title) }}" alt="{{ job.title }}" style="max-width: 160px">
                         </div>
                         <div class="col">
                             <p>{{ job.description }}</p>

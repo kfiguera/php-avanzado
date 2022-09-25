@@ -5,6 +5,9 @@ use App\Models\Job;
 use Respect\Validation\Validator as v;
 
 class JobsController extends BaseController {
+
+
+
     public function getAddJobAction($request) {
         $responseMessage = null;
 
