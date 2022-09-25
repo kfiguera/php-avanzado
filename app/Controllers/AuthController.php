@@ -2,9 +2,9 @@
 namespace App\Controllers;
 
 use App\Models\User;
+use Laminas\Diactoros\Response\RedirectResponse;
 use Respect\Validation\Validator as v;
-use Zend\Diactoros\Response\RedirectResponse;
-use Zend\Diactoros\ServerRequest;
+use Laminas\Diactoros\ServerRequest;
 
 class AuthController extends BaseController {
     public function getLogin() {

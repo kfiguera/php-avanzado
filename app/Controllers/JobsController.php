@@ -5,8 +5,8 @@ namespace App\Controllers;
 use App\Models\Job;
 use App\Services\JobService;
 use Respect\Validation\Validator as v;
-use Zend\Diactoros\Response\RedirectResponse;
-use Zend\Diactoros\ServerRequest;
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\ServerRequest;
 
 class JobsController extends BaseController
 {
