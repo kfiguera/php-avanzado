@@ -14,6 +14,12 @@ $dotenv->load();
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Aura\Router\RouterContainer;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequestFactory;
+use WoohooLabs\Harmony\Harmony;
+use WoohooLabs\Harmony\Middleware\DispatcherMiddleware;
+use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+use WoohooLabs\Harmony\Middleware\LaminasEmitterMiddleware;
 
 $container = new DI\Container();
 $capsule = new Capsule;
@@ -35,7 +41,7 @@ $capsule->setAsGlobal();
 // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
 $capsule->bootEloquent();
 
-$request = Zend\Diactoros\ServerRequestFactory::fromGlobals(
+$request = ServerRequestFactory::fromGlobals(
     $_SERVER,
     $_GET,
     $_POST,
@@ -107,16 +113,22 @@ if (!$route) {
         echo 'Protected route';
         die;
     }
+    $harmony = new Harmony($request, new Response());
+    $harmony
+        ->addMiddleware(new LaminasEmitterMiddleware(new SapiEmitter()))
+        ->addMiddleware(new Middlewares\AuraRouter($routerContainer))
+        ->addMiddleware(new DispatcherMiddleware())
+        ->run();
 
-    $controller = $container->get($controllerName);
-    $response = $controller->$actionName($request);
-
-    foreach($response->getHeaders() as $name => $values)
-    {
-        foreach($values as $value) {
-            header(sprintf('%s: %s', $name, $value), false);
-        }
-    }
-    http_response_code($response->getStatusCode());
-    echo $response->getBody();
+//    $controller = $container->get($controllerName);
+//    $response = $controller->$actionName($request);
+//
+//    foreach($response->getHeaders() as $name => $values)
+//    {
+//        foreach($values as $value) {
+//            header(sprintf('%s: %s', $name, $value), false);
+//        }
+//    }
+//    http_response_code($response->getStatusCode());
+//    echo $response->getBody();
 }
