@@ -1,15 +1,16 @@
 <?php
-
-ini_set('display_errors', 1);
-ini_set('display_starup_error', 1);
-error_reporting(E_ALL);
-
 require_once '../vendor/autoload.php';
 
 session_start();
 
 $dotenv = new Dotenv\Dotenv(__DIR__ . '/..');
 $dotenv->load();
+
+if (getenv('DEBUG') === 'true') {
+    ini_set('display_errors', 1);
+    ini_set('display_starup_error', 1);
+    error_reporting(E_ALL);
+}
 
 use App\Middlewares\AuthenticationMiddleware;
 use Franzl\Middleware\Whoops\WhoopsMiddleware;
@@ -27,7 +28,7 @@ use WoohooLabs\Harmony\Middleware\LaminasEmitterMiddleware;
 
 //Create Log Channel
 $log = new Logger('app');
-$log->pushHandler(new StreamHandler(__DIR__ . '../logs/app.log', Logger::WARNING));
+$log->pushHandler(new StreamHandler(__DIR__ . '/../logs/' . date('Y-m-d_') . 'app.log', Logger::WARNING));
 
 $container = new DI\Container();
 $capsule = new Capsule;
@@ -107,23 +108,26 @@ $map->get('admin', '/admin', [
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
-
 if (!$route) {
     echo 'No route';
 } else {
     try {
         $harmony = new Harmony($request, new Response());
+        $harmony->addMiddleware(new LaminasEmitterMiddleware(new SapiEmitter()));
+        if (getenv('DEBUG') === 'true') {
+            $harmony->addMiddleware(new WhoopsMiddleware());
+        }
         $harmony
-            ->addMiddleware(new LaminasEmitterMiddleware(new SapiEmitter()))
-            ->addMiddleware(new WhoopsMiddleware())
             ->addMiddleware(new AuthenticationMiddleware())
             ->addMiddleware(new Middlewares\AuraRouter($routerContainer))
             ->addMiddleware(new DispatcherMiddleware($container, 'request-handler'))
             ->run();
-//    } catch (Exception $e) {
-//        $emitter = new SapiEmitter();
-//        $emitter->emit(new EmptyResponse(404));
+    } catch (Exception $e) {
+        $log->warning($e->getMessage());
+        $emitter = new SapiEmitter();
+        $emitter->emit(new EmptyResponse(404));
     } catch (Error $e) {
+        $log->error($e->getMessage());
         $emitter = new SapiEmitter();
         $emitter->emit(new EmptyResponse(500));
     }
