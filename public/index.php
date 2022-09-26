@@ -11,7 +11,6 @@ session_start();
 $dotenv = new Dotenv\Dotenv(__DIR__ . '/..');
 $dotenv->load();
 
-
 use App\Middlewares\AuthenticationMiddleware;
 use Franzl\Middleware\Whoops\WhoopsMiddleware;
 use Illuminate\Database\Capsule\Manager as Capsule;
@@ -19,10 +18,16 @@ use Aura\Router\RouterContainer;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\Response\EmptyResponse;
 use Laminas\Diactoros\ServerRequestFactory;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use WoohooLabs\Harmony\Harmony;
 use WoohooLabs\Harmony\Middleware\DispatcherMiddleware;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 use WoohooLabs\Harmony\Middleware\LaminasEmitterMiddleware;
+
+//Create Log Channel
+$log = new Logger('app');
+$log->pushHandler(new StreamHandler(__DIR__ . '../logs/app.log', Logger::WARNING));
 
 $container = new DI\Container();
 $capsule = new Capsule;
@@ -118,7 +123,7 @@ if (!$route) {
 //    } catch (Exception $e) {
 //        $emitter = new SapiEmitter();
 //        $emitter->emit(new EmptyResponse(404));
-      } catch (Error $e) {
+    } catch (Error $e) {
         $emitter = new SapiEmitter();
         $emitter->emit(new EmptyResponse(500));
     }

@@ -16,6 +16,7 @@
         "middlewares/aura-router": "^2",
         "laminas/laminas-httphandlerrunner": "^2.2",
         "filp/whoops": "^2.14",
-        "franzl/whoops-middleware": "^2.0"
+        "franzl/whoops-middleware": "^2.0",
+        "monolog/monolog": "^2.8"
     }
 }
