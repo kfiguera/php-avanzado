@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb842f66e8cd8dc8efbecf68b11b45e7",
+    "content-hash": "25dbc32a6b50394cc98a887c8dd9a5f5",
     "packages": [
         {
             "name": "aura/router",
@@ -154,6 +154,121 @@
                 }
             ],
             "time": "2021-04-16T17:34:40+00:00"
+        },
+        {
+            "name": "filp/whoops",
+            "version": "2.14.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "a63e5e8f26ebbebf8ed3c5c691637325512eb0dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/a63e5e8f26ebbebf8ed3c5c691637325512eb0dc",
+                "reference": "a63e5e8f26ebbebf8ed3c5c691637325512eb0dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9 || ^7.0 || ^8.0",
+                "psr/log": "^1.0.1 || ^2.0 || ^3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9 || ^1.0",
+                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.3",
+                "symfony/var-dumper": "^2.6 || ^3.0 || ^4.0 || ^5.0"
+            },
+            "suggest": {
+                "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
+                "whoops/soap": "Formats errors as SOAP responses"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whoops\\": "src/Whoops/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filipe Dobreira",
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php error handling for cool kids",
+            "homepage": "https://filp.github.io/whoops/",
+            "keywords": [
+                "error",
+                "exception",
+                "handling",
+                "library",
+                "throwable",
+                "whoops"
+            ],
+            "support": {
+                "issues": "https://github.com/filp/whoops/issues",
+                "source": "https://github.com/filp/whoops/tree/2.14.5"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/denis-sokolov",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-01-07T12:00:00+00:00"
+        },
+        {
+            "name": "franzl/whoops-middleware",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/franzliedke/whoops-middleware.git",
+                "reference": "71d75c5fff75587d6194a051d510a9eca0e3a047"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/franzliedke/whoops-middleware/zipball/71d75c5fff75587d6194a051d510a9eca0e3a047",
+                "reference": "71d75c5fff75587d6194a051d510a9eca0e3a047",
+                "shasum": ""
+            },
+            "require": {
+                "filp/whoops": "^1.1 || ^2.0",
+                "middlewares/utils": "^3.0",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "laminas/laminas-diactoros": "^1.1.0 || ^2.0",
+                "phpunit/phpunit": "^8.0",
+                "psr/http-server-middleware": "^1.0"
+            },
+            "suggest": {
+                "psr/http-server-middleware": "In case you want to use PSR 15 middleware"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Franzl\\Middleware\\Whoops\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PSR-15 compatible middleware for Whoops, the pretty error handler",
+            "support": {
+                "issues": "https://github.com/franzliedke/whoops-middleware/issues",
+                "source": "https://github.com/franzliedke/whoops-middleware/tree/2.0.0"
+            },
+            "time": "2021-01-03T01:30:07+00:00"
         },
         {
             "name": "illuminate/container",
@@ -607,30 +722,32 @@
         },
         {
             "name": "middlewares/aura-router",
-            "version": "v1.1.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/middlewares/aura-router.git",
-                "reference": "4e825a421a9857c1a344109bd41019dbb8280e76"
+                "reference": "33ca1a672cbee5707c0cf89716d55b6254b224cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/middlewares/aura-router/zipball/4e825a421a9857c1a344109bd41019dbb8280e76",
-                "reference": "4e825a421a9857c1a344109bd41019dbb8280e76",
+                "url": "https://api.github.com/repos/middlewares/aura-router/zipball/33ca1a672cbee5707c0cf89716d55b6254b224cb",
+                "reference": "33ca1a672cbee5707c0cf89716d55b6254b224cb",
                 "shasum": ""
             },
             "require": {
                 "aura/router": "^3.0",
-                "middlewares/utils": "^2.1",
-                "php": "^7.0",
+                "middlewares/utils": "^3.0",
+                "php": "^7.2 || ^8.0",
                 "psr/http-server-middleware": "^1.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.0",
-                "guzzlehttp/psr7": "^1.4",
-                "phpunit/phpunit": "^6.0|^7.0",
-                "squizlabs/php_codesniffer": "^3.0",
-                "zendframework/zend-diactoros": "^1.3"
+                "laminas/laminas-diactoros": "^2.3",
+                "nyholm/psr7": "^1.2",
+                "oscarotero/php-cs-fixer-config": "^1.0",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^8|^9",
+                "squizlabs/php_codesniffer": "^3.0"
             },
             "type": "library",
             "autoload": {
@@ -655,38 +772,45 @@
             ],
             "support": {
                 "issues": "https://github.com/middlewares/aura-router/issues",
-                "source": "https://github.com/middlewares/aura-router/tree/master"
+                "source": "https://github.com/middlewares/aura-router/tree/v2.0.1"
             },
-            "time": "2018-08-04T10:41:44+00:00"
+            "time": "2020-12-02T00:05:12+00:00"
         },
         {
             "name": "middlewares/utils",
-            "version": "v2.2.0",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/middlewares/utils.git",
-                "reference": "7dc49454b4fbf249226023c7b77658b6068abfbc"
+                "reference": "670b135ce0dbd040eadb025a9388f9bd617cc010"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/middlewares/utils/zipball/7dc49454b4fbf249226023c7b77658b6068abfbc",
-                "reference": "7dc49454b4fbf249226023c7b77658b6068abfbc",
+                "url": "https://api.github.com/repos/middlewares/utils/zipball/670b135ce0dbd040eadb025a9388f9bd617cc010",
+                "reference": "670b135ce0dbd040eadb025a9388f9bd617cc010",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0",
-                "psr/container": "^1.0",
+                "php": "^7.2 || ^8.0",
+                "psr/container": "^1.0 || ^2.0",
                 "psr/http-factory": "^1.0",
                 "psr/http-message": "^1.0",
                 "psr/http-server-middleware": "^1.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.0",
-                "guzzlehttp/psr7": "^1.3",
-                "phpunit/phpunit": "^6.0|^7.0",
-                "slim/http": "^0.3",
-                "squizlabs/php_codesniffer": "^3.0",
-                "zendframework/zend-diactoros": "^1.3"
+                "friendsofphp/php-cs-fixer": "^v2.16",
+                "guzzlehttp/psr7": "^2.0",
+                "laminas/laminas-diactoros": "^2.4",
+                "nyholm/psr7": "^1.0",
+                "oscarotero/php-cs-fixer-config": "^1.0",
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^8|^9",
+                "slim/psr7": "^1.4",
+                "squizlabs/php_codesniffer": "^3.5",
+                "sunrise/http-message": "^1.0",
+                "sunrise/http-server-request": "^1.0",
+                "sunrise/stream": "^1.0.15",
+                "sunrise/uri": "^1.0.15"
             },
             "type": "library",
             "autoload": {
@@ -698,7 +822,7 @@
             "license": [
                 "MIT"
             ],
-            "description": "Common utils to create PSR-15 middleware packages",
+            "description": "Common utils for PSR-15 middleware packages",
             "homepage": "https://github.com/middlewares/utils",
             "keywords": [
                 "PSR-11",
@@ -710,9 +834,9 @@
             ],
             "support": {
                 "issues": "https://github.com/middlewares/utils/issues",
-                "source": "https://github.com/middlewares/utils/tree/v2.2.0"
+                "source": "https://github.com/middlewares/utils/tree/v3.3.0"
             },
-            "time": "2019-03-05T22:06:37+00:00"
+            "time": "2021-07-04T17:56:23+00:00"
         },
         {
             "name": "nesbot/carbon",

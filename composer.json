@@ -13,7 +13,9 @@
         "vlucas/phpdotenv": "^2.5",
         "php-di/php-di": "^6.0",
         "woohoolabs/harmony": "^7.1",
-        "middlewares/aura-router": "^1.1",
-        "laminas/laminas-httphandlerrunner": "^2.2"
+        "middlewares/aura-router": "^2",
+        "laminas/laminas-httphandlerrunner": "^2.2",
+        "filp/whoops": "^2.14",
+        "franzl/whoops-middleware": "^2.0"
     }
 }

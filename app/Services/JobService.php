@@ -6,8 +6,9 @@ use App\Models\Job;
 
 class JobService
 {
-    public function deleteJob($id) {
-            $job = Job::findOrFail($id);
-            $job->delete();
+    public function deleteJob($id)
+    {
+        $job = Job::findOrFail($id);
+        $job->delete();
     }
 }
